@@ -10,11 +10,3 @@ class CategoryTestCase(TestCase):
 
     def test_get_absolute_url(self):
         self.assertEquals(self.category.get_absolute_url,reverse('catalog:category',kwargs={'slug':self.category.slug}))
-
-class ProductTestCase(TestCase):
-
-    def setUp(self):
-        self.product = mommy.make(Product,slug='Curso de Django')
-
-    def test_get_absolute_url(self):
-        self.assertEquals(self.category.get_absolute_url,reverse('catalog:product',kwargs={'slug':self.product.slug}))
