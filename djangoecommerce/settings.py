@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # apps
     'core',
     'catalog',
+    'accounts',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -133,7 +134,15 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 ALLOWED_HOSTS = ['*']
 
-
+#Usuario
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'accounts:index'
+AUTH_USER_MODEL = 'accounts.User'
+AUTHENTICATION_BACKENDS = (
+            #padrao
+            'django.contrib.auth.backends.ModelBackend',
+            'accounts.backends.ModelBackend',
+            )
 
 # E-mail
 EMAIL_HOST = ''

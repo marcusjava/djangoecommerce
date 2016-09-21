@@ -3,8 +3,13 @@ from django.http import HttpResponse
 from catalog.models import Category
 from .forms import ContactForm
 #classe principal generica
-from django.views.generic import View,TemplateView
+from django.views.generic import View,TemplateView,CreateView
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
+from django.core.urlresolvers import reverse_lazy
 
+#model user do django
+User = get_user_model()
 
 # Create your views here.
 """função que recebe uma request e devolve HttpResponse"""
