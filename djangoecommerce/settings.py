@@ -21,6 +21,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY','-uhpfb-=5&l!s0h5sn8*(3a^slvqng24z7b$0yt!a8w+2*$m9#')
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -42,18 +43,24 @@ INSTALLED_APPS = [
     'core',
     'catalog',
     'accounts',
+    'checkout',
 ]
 
-MIDDLEWARE_CLASSES = [
+
+
+#django 1.10
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'checkout.middleware.cart_item_middleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'djangoecommerce.urls'
@@ -149,6 +156,17 @@ EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 DEFAULT_FROM_EMAIL = 'admin@djangoecommerce.com'
+
+#messages sobrescrever por causa da tag do bootstrap danger e por padrao o ERROR se chama error
+from django.contrib.messages import constants as messages_constants
+MESSAGE_TAGS = {
+    messages_constants.DEBUG:'debug',
+    messages_constants.INFO:'info',
+    messages_constants.SUCCESS:'success',
+    messages_constants.WARNING:'warning',
+    messages_constants.ERROR:'danger'
+
+}
 
 try:
     from .local_settings import *

@@ -1,0 +1,11 @@
+from django.conf.urls import url
+from . import views
+
+urlpatterns = [
+	url(
+        r'^carrinho/adicionar/(?P<slug>[\w_-]+)/$', views.add_cart,
+        name='add_cart'
+	),
+   url(r'^carrinho/$', views.cart_item, name='cart_item'),
+   url(r'^finalizando/$', views.checkout, name='checkout')
+]

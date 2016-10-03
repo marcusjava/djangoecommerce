@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from catalog.models import Category
 from .forms import ContactForm
+from django.contrib import messages
 #classe principal generica
 from django.views.generic import View,TemplateView,CreateView
 from django.contrib.auth.forms import UserCreationForm
@@ -25,17 +26,21 @@ class IndexView(TemplateView):
 
 index = IndexView.as_view()
 
-
+"""
+ a classe de erro do bootstrap se chama danger e a do message se chama alert então
+ é necessario sobrescrever as tags do message trocando de error para danger ver settings
+"""
 def contact(request):
     success = False
     form = ContactForm(request.POST or None)
     #sempre testar se form é valido
     if form.is_valid():
         form.send_mail()
-        success = True
+        messages.success(request,'Operação realizado com sucesso')
         form = ContactForm()
+    else:
+        messages.error(request,'Ocorreu um erro')
     context = {
         'form': form,
-        'success': success,
     }
     return render(request,'contact.html',context)
